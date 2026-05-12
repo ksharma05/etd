@@ -1,65 +1,90 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+import { CTASection, ConsultationBooking, Section, ServiceCard } from "@/components/site";
+import { company, services, valueProps } from "@/lib/site-content";
+
+const kineticWords = ["Build", "Scale", "Convert"];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(115,132,95,0.20),_transparent_50%)]" />
+        <div className="mx-auto w-full max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+          <p className="inline-flex rounded-full border border-olive-300 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-olive-800 dark:border-olive-700 dark:bg-olive-900/60 dark:text-olive-200">
+            {company.legalBadge} · {company.city}
           </p>
+          <h1 className="mt-6 max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-olive-950 sm:text-5xl lg:text-6xl dark:text-white">
+            <span className="block">Modern digital systems that help B2B teams</span>
+            <span className="mt-2 block">
+              {kineticWords.map((word, index) => (
+                <span
+                  key={word}
+                  className="mr-3 inline-block animate-pulse"
+                  style={{ animationDelay: `${index * 0.3}s`, animationDuration: "2.5s" }}
+                >
+                  {word}
+                </span>
+              ))}
+              with confidence.
+            </span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg text-olive-700 dark:text-olive-300">{company.description}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="#book-consultation"
+              className="rounded-full bg-olive-950 px-5 py-3 text-sm font-semibold text-white hover:bg-olive-800 dark:bg-olive-200 dark:text-olive-950"
+            >
+              Book Free Consultation
+            </Link>
+            <Link
+              href="/portfolio"
+              className="rounded-full border border-olive-300 px-5 py-3 text-sm font-semibold text-olive-900 hover:bg-olive-200/50 dark:border-olive-700 dark:text-olive-100 dark:hover:bg-olive-800/50"
+            >
+              View Case Studies
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <Section
+        id="about"
+        eyebrow="About Exponent"
+        title="Built in Gurgaon, aligned with global delivery standards."
+        description="As an MSME-registered company, we combine local reliability with modern engineering and creative execution."
+      >
+        <div className="grid gap-4 md:grid-cols-3">
+          {valueProps.map((item) => (
+            <article key={item} className="rounded-2xl border border-olive-300/70 bg-white/60 p-5 dark:border-olive-800 dark:bg-olive-900/40">
+              <p className="text-sm text-olive-800 dark:text-olive-200">{item}</p>
+            </article>
+          ))}
         </div>
-      </main>
-    </div>
+      </Section>
+
+      <Section
+        id="services"
+        eyebrow="Core Services"
+        title="Development, media, and design under one delivery stack."
+        description="Choose a focused service line or combine all three for an integrated growth program."
+      >
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {services.map((service) => (
+            <ServiceCard key={service.slug} service={service} />
+          ))}
+        </div>
+      </Section>
+
+      <CTASection
+        title="Start with a zero-cost consultation"
+        description="Tell us your goals, timeline, and constraints. We will return a clear roadmap and delivery estimate."
+        primaryHref="#book-consultation"
+        primaryLabel="Book Consultation"
+        secondaryHref="/services/web-development"
+        secondaryLabel="Explore Services"
+      />
+
+      <ConsultationBooking />
+    </>
   );
 }
